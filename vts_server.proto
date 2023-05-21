@@ -82,7 +82,3 @@ service RoomService {
 
     rpc Exit(ReqCommon) returns (RspCommon);
 } 
-
-service RoomAdminService {
-    
-}
