@@ -53,6 +53,7 @@ message RspRoomInfo {
 message ReqShareInfo {
     string gpu = 1;
     string capture = 2;
+    bool start = 3;
 }
 
 message Notify {
