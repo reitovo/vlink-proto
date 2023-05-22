@@ -88,4 +88,4 @@ service RoomService {
     rpc RequestIdr(ReqCommon) returns (RspCommon);
 
     rpc Exit(ReqCommon) returns (RspCommon);
-} 
+}
