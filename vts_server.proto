@@ -43,7 +43,19 @@ message ReqNatType {
 
 message ReqRtt {
     map<string, int64> rtt = 1;
-} 
+}
+
+message StatInfo {
+    int64 rtt = 1;
+    uint64 txBytes = 2;
+    uint64 rxBytes = 3;
+    uint64 txSpeed = 4;
+    uint64 rxSpeed = 5;
+}
+
+message ReqStat {
+    map<string, StatInfo> stats = 1;
+}
 
 message RspRoomInfo {
     string roomId = 2;
@@ -54,6 +66,14 @@ message ReqShareInfo {
     string gpu = 1;
     string capture = 2;
     bool start = 3;
+    bool isWireless = 4;
+    bool is2G4 = 5;
+}
+
+message ReqIdr {
+    string reason = 1;
+    uint64 timestamp = 2;
+    string peerId = 3;
 }
 
 message Notify {
@@ -83,9 +103,10 @@ service RoomService {
     rpc SetNickName(ReqNickname) returns (RspCommon);
     rpc SetNatType(ReqNatType) returns (RspCommon);
     rpc SetRtt(ReqRtt) returns (RspCommon);
+    rpc SetStat(ReqStat) returns (RspCommon);
     rpc SetShareInfo(ReqShareInfo) returns (RspCommon);
     
-    rpc RequestIdr(ReqCommon) returns (RspCommon);
+    rpc RequestIdr(ReqIdr) returns (RspCommon);
 
     rpc Exit(ReqCommon) returns (RspCommon);
 }
