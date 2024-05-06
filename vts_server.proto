@@ -17,8 +17,6 @@ message Sdp {
     string type = 2;
     string fromPeerId = 3;
     string toPeerId = 4;
-    uint64 timestamp = 5;
-    string turn = 6;
 }
 
 message Candidate {
@@ -32,6 +30,7 @@ message ReqCreateRoom {
     string peerId = 1;
     FrameFormatSetting format = 2; 
     string nick = 4;
+    string turn = 5;
 }
 
 message ReqJoinRoom {
@@ -68,6 +67,11 @@ message RspRoomInfo {
     string roomId = 2;
     FrameFormatSetting format = 3;
     string hostPeerId = 4;
+    string turn = 5;
+}
+
+message TurnInfo {
+    string turn = 1;
 }
 
 message ReqShareInfo {
@@ -92,12 +96,13 @@ message Notify {
         NotifyCommon roomDestroy = 5;
         NotifyCommon forceIdr = 6;
         Candidate candidate = 7;
+        TurnInfo turn = 8;
     }
 } 
 
 message NotifyPeers {
     repeated Peer peers = 1;
-}  
+}
 
 service RoomService {
     rpc Hello(ReqCommon) returns (RspCommon);
@@ -115,6 +120,7 @@ service RoomService {
     rpc SetStat(ReqStat) returns (RspCommon);
     rpc SetShareInfo(ReqShareInfo) returns (RspCommon);
     rpc SetCandidate(Candidate) returns (RspCommon);
+    rpc SetTurn(TurnInfo) returns (RspCommon);
     
     rpc RequestIdr(ReqIdr) returns (RspCommon);
 
